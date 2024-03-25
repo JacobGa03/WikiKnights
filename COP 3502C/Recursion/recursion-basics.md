@@ -55,19 +55,20 @@ Well let's trace through `fact(5)`
 
 > When things don't work like intended, it is always helpful to run a debugger, like GDB, which is extremely useful to show the steps your code took during execution. WikiKnights has tutorials on using GDB if you are interested.
 
+
+Tracing the function calls: 
 ```
-fact(5) = 5 * fact(4)
-fact(4) = 4 * fact(3)
-fact(3) = 3 * fact(2)
-fact(2) = 2 * fact(1)
-fact(1) = 1 * fact(0)
-fact(0) = 9 * fact(-1)
-        .
-        .
-        .
+                    fact(5) = 5 * fact(4)
+                    fact(4) = 4 * fact(3)
+                    fact(3) = 3 * fact(2)
+                    fact(2) = 2 * fact(1)
+                    fact(1) = 1 * fact(0)
+                            .
+                            .
+                            .
 ```
 
-This issue highlights another key pillar of recursive solutions: base cases. A base case is a case in our recursive solution that is trivially easy to solve. Because of this, we can simply return the answer to problem. For Factorial this base case will be `fact(0)`, since `0! = 1`.
+This issue highlights another key pillar of recursive solutions: base cases. A base case is a case in our recursive solution that is trivially easy to solve. Because of this, we can simply return the answer to problem, this also ensures that our recursive calls end. For Factorial this base case will be `fact(0)`, since `0! = 1`.
 
 Now, lets add a base case to our code and see if it works
 
@@ -119,7 +120,7 @@ int sumDigits(int n){
 
 As we've learned, recursion is an incredibly powerful programming technique that can be used to solve many different types of problems. Understanding and utilizing recursion is a skill, which implies some practice is needed to hone.  Recursion is also an important programming concept that integral to many different data structures and algorithms you will cover in Computer Science I. Because of this, it is important to take the time to practice utilizing recursion in different types of problems.
 
-### Additional Resources
+## Additional Resources
 
 [William Fiset Recursion Playlist](https://youtube.com/playlist?list=PLDV1Zeh2NRsCmu1lb9grUcljeYJtmgmYc&si=ZCzm6PNRa7iZw1bV)
 
@@ -129,6 +130,6 @@ As we've learned, recursion is an incredibly powerful programming technique that
 
 [MIT OpenCourseWare Recursion](https://ocw.mit.edu/ans7870/6/6.005/s16/classes/10-recursion/)
 
-### Credits
+## Credits
 
-Thanks to professor Arup Guha, as this tutorial is an adaptation of his class notes. If you would like to view them click [here](https://www.cs.ucf.edu/~dmarino/ucf/transparency/cop3502/lec/RecursionIntro.pdf)
+Thanks to professor Arup Guha, as this tutorial is an adaptation of his class notes. If you would like to view them click [here](https://www.cs.ucf.edu/~dmarino/ucf/transparency/cop3502/lec/RecursionIntro.pdf).
