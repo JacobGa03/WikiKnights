@@ -1,5 +1,5 @@
 ---
-title: Intro to Trees
+title: Intro to Binary Trees
 author:
     - Jacob Gadberry
 ---
@@ -45,13 +45,56 @@ typedef struct node{
 
 ## Traversing a Binary Tree
 
-Now that we have a Binary Tree constructed we need a way to search for items within our new data structure. How should traverse the tree? 
+Now that we have a Binary Tree constructed we need a way to search for items within our new data structure. How should we traverse the tree? 
 
 An iterative approach in this situation will be quite difficult since there is no easy we to keep track of paths we've traversed. Can you think of a better way?
 
-One thing that is really useful about Trees is that they are recursive in nature. The left and right sub-trees are really just smaller version of the main trees from which they come. Because of this fact, we can utilize recursion to traverse through a Binary Tree.
+One thing that is really useful about Trees is that they are recursive in nature. The left and right sub-trees are really just smaller version of the main tree from which they come. Because of this fact, we can utilize recursion to traverse through a Binary Tree.
 
-//TODO: Describe the 3 basic Pre/In/Post order traversals
+To get an intuition of how we could traverse a Binary Tree, think about how could we write code to print out all of the values of the nodes within a given Binary Tree.
+
+```
+                    +-------+
+                    |   A   |
+                    +-------+
+                  /           \
+        +-------+               +-------+           
+        |   B   |               |   C   |
+        +-------+               +-------+
+      /           \           /          \
+    X          +-------+     X            X
+               |   D   |
+               +-------+
+             /           \
+            X            X
+```
+
+Taking this tree for example, how could we write code to print all of the values within it?
+
+<details>
+<summary>Show Code</summary>
+
+One way we could do this is as follows; print the value of the node we are at, then print the left and right subtrees. Print the value of one of the other subtrees and then the node we are at. Print the values of both of the subtrees then print the node we are at.
+
+The code could look something like this
+
+```c
+void printTree(treeNode* root){
+  if(root == NULL)
+    return;
+  //Print the node we are at first
+  printf("%d", root->data);
+  //Print both of the subtrees of root
+  printTree(root->left);
+  printTree(root->right);
+}
+```
+
+Can you come up with the other two mentioned above?
+</details>
+
+Looking back at the different ways at printing the values within our tree we can derive three main ways to traverse a binary tree: Pre-order, In-order, Post-order. Pre-order is printing the value we are at first; In-order is printing on our subtrees first; and, post-order is printing both of our subtrees first. Lets look at the code!
+
 ```c
 //Print the data first
 void PreOrder(treeNode* root){
@@ -83,15 +126,27 @@ void PostOrder(treeNode* root){
 }
 ```
 
-## Binary Search Tree
+Can you determine the Pre-order, In-order, and Post-order of this Binary Tree?
 
-With regular Binary Trees we did not define a way of placing items into the tree. This makes it harder to search for items, since we have no way of knowing where items lie within the Binary Tree. If we think about it, a search on a Binary Tree with data arbitrarily placed will still do no better than a Linked List search, `O(n)`. Think about why this is.
-
-Building off of what we've discussed, we will add another property to our Binary Tree: any data less than the root will be placed in the left sub-tree and any value greater than or equal to the root will go in the right sub-tree. 
+```
+                    +-------+
+                    |   A   |
+                    +-------+
+                  /           \
+        +-------+               +-------+           
+        |   B   |               |   C   |
+        +-------+               +-------+
+      /           \           /          \
+    X          +-------+     X            X
+               |   D   |
+               +-------+
+             /           \
+            X            X
+```
 
 ## Conclusion
 
-
+ We've learned that binary trees are linked structures that allow us to store our data is a different way. We also studied different ways to traverse our new data structure. It is important to make sure that you understand the information discussed here, as having a strong understanding of the basics will allow you to do good in Computer Science I.
 
 ## Additional Resources
 
