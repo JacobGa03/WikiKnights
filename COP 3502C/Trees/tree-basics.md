@@ -6,7 +6,7 @@ author:
 
 # Introduction
 
-Another useful data structure that we will discuss in COP 3502 are Trees. In COP 3502 you will focus on a couple of different type of trees: Binary Trees, Binary Search Trees, AVL Trees, Tries, and Heaps. Let's start with the simplest tree we will discuss: a Binary Tree. 
+Another useful data structure that we will discuss in COP 3502 is Trees. In COP 3502 you will focus on a couple of different type of trees: Binary Trees, Binary Search Trees, AVL Trees, Tries, and Heaps. Let's start with the simplest tree we will discuss: a Binary Tree. 
 
 ## Why Trees?
 
@@ -31,7 +31,7 @@ Here is an picture of what a binary tree might look like
             X            X
 ```
 
-## Defining the Binary Tree in code
+# Defining the Binary Tree in code
 
 Before we do anything with binary trees, we first need to set up a way to represent them in C. As the word binary implies, each node in the tree can have a max of two children. To keep track of the children, each node will contain two pointers, `left` and `right`. Each node will store some sort of data; this could be an `int`, `char`, `char*`, or another struct you create. Lastly, a property ALL Trees share is that there are no cycles allowed. If node A points to node B, and node B points to node A, then there is a cycle. 
 
@@ -43,7 +43,7 @@ typedef struct node{
 }node;
 ```
 
-## Traversing a Binary Tree
+# Traversing a Binary Tree
 
 Now that we have a Binary Tree constructed we need a way to search for items within our new data structure. How should we traverse the tree? 
 
@@ -144,11 +144,11 @@ Can you determine the Pre-order, In-order, and Post-order of this Binary Tree?
             X            X
 ```
 
-## Conclusion
+# Conclusion
 
  We've learned that binary trees are linked structures that allow us to store our data is a different way. We also studied different ways to traverse our new data structure. It is important to make sure that you understand the information discussed here, as having a strong understanding of the basics will allow you to do good in Computer Science I.
 
-## Additional Resources
+# Additional Resources
 
 [Binary Tree Bootcamp: Full, Complete, & Perfect Trees. Preorder, Inorder, & Postorder Traversal.](https://www.youtube.com/watch?v=BHB0B1jFKQc&t=1033s)
 
@@ -156,6 +156,6 @@ Can you determine the Pre-order, In-order, and Post-order of this Binary Tree?
 
 [Introduction to Binary Tree – Data Structure and Algorithm Tutorials](https://www.geeksforgeeks.org/introduction-to-binary-tree-data-structure-and-algorithm-tutorials/)
 
-## Credits
+# Credits
 
-Thanks to professor Arup Guha, as this tutorial is an adaptation of his class notes. If you would like to view them click [here](https://www.cs.ucf.edu/~dmarino/ucf/transparency/cop3502/lec/BinaryTrees-1.pdf).
+Thanks to professor Arup Guha, as this tutorial is an adaptation of his class notes. If you would like to view them click [here](https://www.cs.ucf.edu/~dmarino/ucf/transparency/cop3502/). Once on the main site, click `Study Materials`, then go to `Binary Trees`. There will be all of his notes on this topic.
