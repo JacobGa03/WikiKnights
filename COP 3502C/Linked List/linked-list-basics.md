@@ -15,10 +15,16 @@ A Linked List is exactly what it sounds like, a list where all of the elements a
 Here is an example of a Linked List
 
 ```
-+------+    +------+    +------+    +-----+    +-----+    +------+
-| head | -> |  10  | -> |  15  | -> |  3  | -> |  1  | -> | NULL |
-+------+    +------+    +------+    +-----+    +-----+    +------+
++------+
+| head |
++------+
++------+    +------+    +-----+    +-----+    +------+
+|  10  | -> |  15  | -> |  3  | -> |  1  | -> | NULL |
++------+    +------+    +-----+    +-----+    +------+
 ```
+
+> `head` is written above `10` to represent that 10 is the head node.
+
 
 While this might just look like an array IT IS NOT! An array gives us the ability to index into different spots within our array. We cannot do this with Linked List because all of the nodes reside in non-contiguous spots in memory. All of the `->` represent pointers that each node has pointing to the next.
 
@@ -46,29 +52,38 @@ First, we will trace through an example of how we will insert, then we will go o
 Let's consider inserting `7` into this list.
 
 ```          
-+------+    +------+    +------+    +-----+    +-----+    +------+
-| head | -> |  10  | -> |  15  | -> |  3  | -> |  1  | -> | NULL |
-+------+    +------+    +------+    +-----+    +-----+    +------+
++------+
+| head |
++------+
++------+    +------+    +-----+    +-----+    +------+
+|  10  | -> |  15  | -> |  3  | -> |  1  | -> | NULL |
++------+    +------+    +-----+    +-----+    +------+
 ```                  
 
-Assuming we have access to the head of this list, all we must do is have `head` point to `7` and `7` point to what head originally pointed to.
-
+Assuming we have access to the head of this list, all we must do is have `head` point to `7` and `7` point to what `head` originally had.
 
 ```
-+------+    +------+    
-| head | -> |  10  | -> ...
-+------+    +------+    
-               ^       Set 7's next pointer to 10 
-          _____|
-+-----+ /
++------+
+| head |
++------+
++------+    
+|  10  | -> ...
++------+    
+    ^
+    |         Set 7's next pointer to 10 
+    -----         
++-----+ | 
 |  7  |-
 +-----+
 ```
 
 ```          
-+------+    +-----+    +------+ 
-| head | -> |  7  | -> |  10  | -> ...   Set head's next pointer to 7
-+------+    +-----+    +------+
++------+
+| head |
++------+
++-----+    +------+ 
+|  7  | -> |  10  | -> ...   Set 7's next pointer to 10
++-----+    +------+
 ```                  
 
 Since we have access constant access to the head,  we don't have to do any traversing. This make inserting in the front an `O(1)` operation.
@@ -98,11 +113,15 @@ We will create a temporary `node*` that will allow us to find the end of the lis
 Instead, we will create a temporary pointer called `tempHead` which we will use to traverse until the end of the list is reached.
 
 ```          
-+------+    +------+    +------+    +-----+    +-----+    +------+
-| head | -> |  10  | -> |  15  | -> |  3  | -> |  1  | -> | NULL |
-+------+    +------+    +------+    +-----+    +-----+    +------+
-     ^
-     |
+
++------+
+| head |
++------+
++------+    +------+    +-----+    +-----+    +------+
+|  10  | -> |  15  | -> |  3  | -> |  1  | -> | NULL |
++------+    +------+    +-----+    +-----+    +------+
+    ^
+    |
 +----------+
 | tempHead |
 +----------+
@@ -153,7 +172,66 @@ Can you come up with the insert using `tail`?
 
 Besides adding either to the front of the back of a list we might want to add items in order. This will require us to add items in the middle of the list. 
 
-This approach will require us 
+This approach will require us to iterate until we find the correct spot to place our new node at.
+
+Let's insert `13` into our list.
+
+```
++------+
+| head |
++------+
++------+    +------+    +------+    +------+    +------+
+|  10  | -> |  11  | -> |  15  | -> |  18  | -> | NULL |
++------+    +------+    +------+    +------+    +------+
+```
+
+What we will need to do is traverse the list until we find the first node that is greater than the value we want to add into our list. Just like add to back, we will need a temporary node in order to traverse over the list.
+
+```
++------+
+| head |
++------+
++------+    +------+    +------+    +------+    +------+
+|  10  | -> |  11  | -> |  15  | -> |  18  | -> | NULL |
++------+    +------+    +------+    +------+    +------+
+    ^
+    |
++----------+
+| tempHead |
++----------+
+```
+
+We can utilize the ability to use `tempHead->next` to check the value in front of us. Once we find the first value that is greater than `13` we know that we make `13` the next pointer of `tempHead`.
+
+
+```
++------+    +------+    +------+    +------+
+|  11  | -> |  15  | -> |  18  | -> | NULL |
++------+    +------+    +------+    +------+
+    ^
+    |
++----------+
+| tempHead |
++----------+
+```
+
+Since we know that `tempHead->next` = `15`, we will add `13` into the list 
+
+```
++------+    +------+    +------+    +------+
+|  11  | -| |  15  | -> |  18  | -> | NULL |
++------+  | +------+    +------+    +------+
+    ^     |      ^
+    |     |      |-----     
+    |     ------      |
++----------+   |   +------+
+| tempHead |   |-> |  13  |
++----------+       +------+
+```
+
+We set `13` next value as `15` and then we set `tempHead`'s next value to 13. Now we've inserted `13` in the correct place within the list
+
+It's clear to see that at WORST we might have to traverse the whole list, which makes this an `O(n)` operation.
 
 ```c
 node* addInOrder(node* head, int val){
@@ -185,7 +263,54 @@ node* addInOrder(node* head, int val){
 
 # Delete
 
-This is a lot like add in order because this will require us to traverse a linked list to find a node and delete it and "patch" over the deletion.
+Deleting an element from a Linked List will be a lot like adding in order. We will need to keep track of the node that comes right before the node we want to delete. 
+
+Once we "patch over" the deleted node, then we can free it.
+
+Let's delete `15` from the list
+
+```
++------+
+| head |
++------+
++------+    +------+    +------+    +------+    +------+
+|  10  | -> |  11  | -> |  15  | -> |  18  | -> | NULL |
++------+    +------+    +------+    +------+    +------+
+```
+
+Just like before, we will need a temporary node to traverse the rest of the list. Once we find the node RIGHT BEFORE `15`, then we can perform the "patch over" and deletion of `15`.
+
+```
++------+    +------+    +------+    +------+
+|  11  | -> |  15  | -> |  18  | -> | NULL |
++------+    +------+    +------+    +------+
+   ^
+   |
++----------+
+| tempHead |
++----------+
+```
+
+Once we are here we will save `15` in another temporary node, then "patch over", then free `15.
+
+```       
+          ------------ 
++------+  | +------+ |  +------+    +------+
+|  11  | -| |  15  | -> |  18  | -> | NULL |
++------+    +------+    +------+    +------+
+   ^            ^
+   |            -------
+   |                  |
++----------+      +-----------+
+| tempHead |      | tempHead2 |
++----------+      +-----------+
+```
+
+Now we can call `free(tempHead2)` to safely delete `15`.
+
+Since at WORST we might have to traverse the whole list, this makes delete an `O(n)` operation.
+
+Now let's look at the delete code
 
 ```c
 node* delNode(node* head, int val){
@@ -231,9 +356,37 @@ node* delNode(node* head, int val){
 }
 ```
 
+> This code does deletions for multiple instances of the value that you want to delete from the list.
+
 # Search
 
-We need to use a a temporary pointer just like add to back. Beside that it is very easy to search for an item within a linked list.
+Searching in a Linked List is probably the easiest operation to perform since it is just a Linked List traversal.
+
+All we need is, you guessed it, a temporary node so we can search the whole list for the value what we are looking for. Once we find the value we are looking for we can return `1` to indicate a successful search or `0` for an unsuccessful.
+
+```c
+int search(node* head, int val){
+    //Our temporary pointer
+    node* temp = head;
+
+    //Search until we hit the end of the list
+    while(temp != NULL){
+        //We've found the value we are looking for
+        if(temp->data == val)
+            return 1;
+        //Advance temp to the next node
+        temp = temp->next;
+    }
+    //The search was unsuccessful 
+    return 0; 
+}
+```
+
+Clearly, any linear search will take at WORST `O(n)` time.
+
+# Conclusion
+
+We learned about the basics of Linked Lists. How to build them and how to remove items from them. Lastly, we learned about the Big-Oh time complexities related to all of these operations.
 
 # Additional Resources
 
