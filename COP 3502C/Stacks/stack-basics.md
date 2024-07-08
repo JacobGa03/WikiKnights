@@ -20,7 +20,7 @@ The first thing that we should discuss is how to create a stack in C. There are 
 
 ## Stack Behavior
 
-There are two main things that a stack can do `push` and `pop`. `push` puts an item on the top of the stack. `pop` removes an item from the top of the stack. Sometimes you might implement `peek` which returns the item on the top of the stack without removing it. 
+There are two main things that a stack can do `push` and `pop`. `push` puts an item on the top of the stack. `pop` removes an item from the top of the stack. Sometimes you might implement `peek`, which returns the item on the top of the stack without removing it. 
 
 ## Linked List
 
@@ -32,9 +32,13 @@ Another way we can implement stacks is with arrays.
 
 # Applications of Stacks
 
-One application where we can use Stacks is when evaluating mathematical expressions in `postfix notation`. In order to understand what `postfix` even means, let's relate it to something you're probably more familiar with.
+One application where we can use Stacks is when evaluating mathematical expressions in `postfix notation` . In order to understand what `postfix` even means, let's relate it to something you're probably more familiar with.
 
-When we write `3 + 7 * 5`, we call placing the arithmetic operators in between the numbers `infix notation`; this is because we place the operators `in`between the operands. As you might guess `postfix notation` is when we place the operators AFTER the operands. 
+> If you've heard the phrase "reverse polish notation", that is another way to say `postfix notation`.
+
+When we write `3 + 7 * 5`, we  that `7 * 5` should be evaluated first; this gives us `35`. From here we take `35` and and `3` giving us `38` as our final answer.
+
+But, why did `7 * 5` go first? Why not `3 + 7`? Most of us (hopefully) know the answer to this. In elementary school you learned about the order of operations: parenthesis, exponents, multiplication, division, addition, and subtraction (`PEMDAS` mnemonic helps us remember).
 
 "Why would we need this?" Well, when computers perform arithmetic they have no concept of operator precedents like we do. This precedents allows us to remove the ambiguity that arises when we write equations in `infix notation`. 
 
@@ -51,6 +55,8 @@ Given this expression `3 7 5 * +` (the `postfix` equivalent of the expression ab
 ## Additional Resources
 
 [Data Structures: Stacks and Queues - HackerRank](https://youtu.be/wjI1WNcIntg)
+
+[Reverse Polish Notation and The Stack - Computerphile](https://youtu.be/7ha78yWRDlE)
 
 ## Credits
 
