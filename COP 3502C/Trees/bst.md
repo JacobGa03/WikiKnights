@@ -1,7 +1,7 @@
 ---
-title: Binary Search Trees 
+title: Binary Search Trees
 author:
-  - Jacob Gadberry 
+  - Jacob Gadberry
 ---
 
 # Introduction
@@ -12,15 +12,16 @@ Binary Search Trees (BST) give us a data structure that will allow us to store d
 
 With regular Binary Trees we did not define a way of placing values into the tree. This makes it harder to search for values since we have no way of knowing where they lie within the Binary Tree. If we think about it, a search on a Binary Tree with data placed arbitrarily will still do no better than a Linked List search, `O(n)`. Think about why this is.
 
-Building off of what we've discussed, we will add another property to our Binary Tree: any data less than the root will be placed in the left subtree and any value greater than or equal to the root will go in the right subtree. 
+Building off of what we've discussed, we will add another property to our Binary Tree: any data less than the root will be placed in the left subtree and any value greater than or equal to the root will go in the right subtree.
 
 Here is an example of a BST:
+
 ```
                     +--------+
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   5   |               |   15   |
         +-------+               +--------+
       /           \           /           \
@@ -40,7 +41,7 @@ Now that we have defined what a BST is, let's consider running search on the BST
 Let's look for `9`; and consider how we could devise some code to search for `9` on this BST. It's important to state that we ALWAYS start our search at the root of the tree `10`.
 
 ```
-                    +--------+    
+                    +--------+
                     |   10   |  <---
                     +--------+
                    /          \
@@ -49,7 +50,7 @@ Let's look for `9`; and consider how we could devise some code to search for `9`
 Since we are searching for `9` and we are currently looking at `10` we can safely look into the left subtree since we know that `9` must be in the left subtree since ALL values less than `10` will reside in the left subtree.
 
 ```
-                    +-------+    
+                    +-------+
                     |   5   |   <---
                     +-------+
                    /          \
@@ -58,7 +59,7 @@ Since we are searching for `9` and we are currently looking at `10` we can safel
 `9` is greater than `5` so we will need to look in `5`'s right subtree to find it.
 
 ```
-                    +-------+    
+                    +-------+
                     |   9   |   <---
                     +-------+
                    /          \
@@ -69,7 +70,7 @@ Great! Now we have found the `9`, the value we were looking for.
 Let's run another search. This time let's look for `25`
 
 ```
-                    +--------+    
+                    +--------+
                     |   10   |    <---
                     +--------+
                    /          \
@@ -78,7 +79,7 @@ Let's run another search. This time let's look for `25`
 Since `25` is greater than `10`, we will need to search the right subtree.
 
 ```
-                    +--------+    
+                    +--------+
                     |   15   |    <---
                     +--------+
                    /          \
@@ -87,7 +88,7 @@ Since `25` is greater than `10`, we will need to search the right subtree.
 `25` is greater than `15`, so we search the right subtree.
 
 ```
-                    +--------+    
+                    +--------+
                     |   20   |    <---
                     +--------+
                    /          \
@@ -96,7 +97,7 @@ Since `25` is greater than `10`, we will need to search the right subtree.
 `25` is greater than `20`, so we search the right subtree.
 
 ```
-                    +-------+    
+                    +-------+
                     |   X   |     <---
                     +-------+
 ```
@@ -138,7 +139,7 @@ Let's look back at our tree and calculate the height
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   5   |               |   15   |
         +-------+               +--------+
       /           \           /           \
@@ -149,19 +150,19 @@ Let's look back at our tree and calculate the height
             X            X          X            X
 ```
 
-Starting at the root, we will count the number of *edges*. The longest sequence of edges will be the height of our Binary Tree. It is important to note that we DON'T count the edges pointing to `NULL`.
+Starting at the root, we will count the number of _edges_. The longest sequence of edges will be the height of our Binary Tree. It is important to note that we DON'T count the edges pointing to `NULL`.
 
 `10 -> 15 -> 20` gives us 2 edges. Likewise, `10 -> 5 -> 9` also gives us 2 edges. Therefore, we say that this tree has a height of `2`.
 
 # Runtime Analysis
 
-What would the worst runtime of this search algorithm be? 
+What would the worst runtime of this search algorithm be?
 
 Unlike our search on a regular Binary Tree, which was `O(n)`, this search will be based on the height on the , `h`. So, we say that the worst case runtime of this algorithm will be `O(h)`.
 
 The `O(h)` comes from the fact that we could have to go down the longest branch in the tree to find the value we are looking for. We also remember that the length of the longest branch in a tree is defined as the height of the tree. Therefore, in the worst case we will traverse AT MOST `h + 1` nodes within the tree before we can determine if the value is in the tree or not.
 
-Here is one last question to ponder: Can you construct a BST where the worst case runtime for search could be the same as the worst case search in a Binary Tree? 
+Here is one last question to ponder: Can you construct a BST where the worst case runtime for search could be the same as the worst case search in a Binary Tree?
 
 # Insertion & Deletion
 
@@ -180,7 +181,7 @@ Let's take this tree and add the value `1`
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   5   |               |   15   |
         +-------+               +--------+
       /           \           /           \
@@ -200,6 +201,7 @@ Once we get here, we will evaluate that `1 < 5`, so we will go left and find a `
                    /         \
                   X          ...
 ```
+
 Now our subtree looks like this.
 
 ```
@@ -216,7 +218,7 @@ Now our subtree looks like this.
 
 ### Insert in Code
 
-Let's look at the insert code 
+Let's look at the insert code
 
 ```c
 	//We've created a new tree!
@@ -230,23 +232,23 @@ Let's look at the insert code
   //We need to add the node to the right subtree
 	else
 		root->right = insert(root->right, val);
-	
+
 	//Return the new root of our tree
 	return root;
 ```
 
 ## Delete
 
-Unlike inserting into a BST, deleting an element from a BST is a little more complex. The added complexity comes from the fact that we need to determine the number of children a node has because this will determine how we will replace the node. 
+Unlike inserting into a BST, deleting an element from a BST is a little more complex. The added complexity comes from the fact that we need to determine the number of children a node has because this will determine how we will replace the node.
 
-Let's look at an example 
+Let's look at an example
 
 ```
                     +--------+
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   5   |               |   15   |
         +-------+               +--------+
       /           \                       \
@@ -254,9 +256,9 @@ Let's look at an example
 |   1   |     |   9   |              |   20   |
 +-------+     +-------+              +--------+
                                     /
-                               +--------+      
-                               |   19   |      
-                               +--------+      
+                               +--------+
+                               |   19   |
+                               +--------+
 ```
 
 Let's consider deleting `19`. This will be easy since `19` has no children it can simply be deleted.
@@ -266,7 +268,7 @@ Let's consider deleting `19`. This will be easy since `19` has no children it ca
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   5   |               |   15   |
         +-------+               +--------+
       /           \                       \
@@ -280,7 +282,7 @@ Let's try another and delete `15` from our original tree. This will be harder si
 ```
                           ...
                             \
-                              +--------+     
+                              +--------+
                               |   15   |
                               +--------+
                                         \
@@ -288,9 +290,9 @@ Let's try another and delete `15` from our original tree. This will be harder si
                                   |   20   |  <-- Remember this
                                   +--------+
                                   /
-                            +--------+      
-                            |   19   |      
-                            +--------+      
+                            +--------+
+                            |   19   |
+                            +--------+
 ```
 
 Now that we've remembered the right subtree, we can delete `15` and set `10` right child to `20`.
@@ -300,10 +302,10 @@ Now that we've remembered the right subtree, we can delete `15` and set `10` rig
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   5   |               |   20   |
         +-------+               +--------+
-      /           \            /          
+      /           \            /
 +-------+     +-------+   +--------+
 |   1   |     |   9   |   |   19   |
 +-------+     +-------+   +--------+
@@ -315,18 +317,18 @@ Let's do one more deletion to our original tree, and delete `5`. This becomes mo
 
 Obviously we can't delete `5` and patch over. What we can do is replace the node of `5` with something else.
 
-It turns out that we can replace `5` with `1` or `9` and BST still holds the properties it has to to still be a BST. 
+It turns out that we can replace `5` with `1` or `9` and BST still holds the properties it has to to still be a BST.
 
 ```
                     Replace 5 with 1
-                    +--------+            
+                    +--------+
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   1   |               |   20   |
         +-------+               +--------+
-                 \             /          
+                 \             /
               +-------+   +--------+
               |   9   |   |   19   |
               +-------+   +--------+
@@ -338,7 +340,7 @@ It turns out that we can replace `5` with `1` or `9` and BST still holds the pro
                     |   10   |
                     +--------+
                   /           \
-        +-------+               +--------+           
+        +-------+               +--------+
         |   9   |               |   15   |
         +-------+               +--------+
       /                                   \
@@ -346,9 +348,9 @@ It turns out that we can replace `5` with `1` or `9` and BST still holds the pro
 |   1   |                             |   20   |
 +-------+                             +--------+
                                     /
-                               +--------+      
-                               |   19   |      
-                               +--------+      
+                               +--------+
+                               |   19   |
+                               +--------+
 ```
 
 It should be noted that, in general, when a node has two children it can either be replaced from the maximum node in its left subtree OR the minimum of its right.
@@ -361,7 +363,7 @@ Let's look at the delete code
 	//There is no node to delete
 	if(root == NULL)
 		return NULL;
-	
+
 	//We've found the correct node to delete
 	if(root->data == val){
 		//The root has no children (Easy Case)
@@ -399,7 +401,7 @@ Let's look at the delete code
 		root->left = delete(root->left, val);
 	else
 		root->right = delete(root->right, val);
-	
+
 	//Now that the delete has occurred, return the new root
 	return root;
 ```
