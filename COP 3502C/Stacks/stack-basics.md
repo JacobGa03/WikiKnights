@@ -126,9 +126,80 @@ But, why did `7 * 5` go first? Why not `3 + 7`? Most of us (hopefully) know the 
 
 Given this expression `3 7 5 * +` (the `postfix` equivalent of the expression above), find what it equals.
 
-## Infix to Postfix
+In order to solve this problem we will use a stack. But how?
+
+What we will do is start with an empty stack and read through our expression. There are two main operations we will do when reading our expression:
+
+1. When we hit a number (operand), we `push` it onto our stack.
+2. When we hit an arithmetic symbol (operator), we `pop` two numbers off of the stack an perform that operator on the two numbers; we then push that result onto the stack.
+
+Let's run through this with our original expression `3 7 5 * +`
+
+```
+            3 7 5 * +
+            ^
+
+
+  3
+-----
+Stack
+```
+
+```
+            3 7 5 * +
+              ^
+
+  7
+  3
+-----
+Stack
+```
+
+```
+            3 7 5 * +
+                ^
+  5
+  7
+  3
+-----
+Stack
+```
+
+```
+            3 7 5 * +
+                  ^
+
+ 35
+  3
+-----      7 * 5 = 35
+Stack
+```
+
+```
+            3 7 5 * +
+                    ^
+
+
+ 40
+-----      3 + 35 = 40
+Stack
+```
+
+Now that our stack is empty we know our result is `40`.
+
+We can double check this by computing the answer to the `infix` version.
+
+```
+3 + 7 * 5 = 3 + 35 = 40
+```
+
+Now, we can conclude that we've come to the correct answer! Yay!
+
+A natural question you might have is "how do we get `postfix` notation in the first place?" The process to get an infix expression into a postfix expression also uses a stack. However, that process takes a little longer to explain and demonstrate, which is why it will have its own tutorial.
 
 # Conclusion
+
+We've learned about stacks and how they are abstract data types. This makes them unlike any other data structure we've learned about thus far. We've also learned how to implement stacks with both a linked list and array. Lastly, we learned about some applications of stacks.
 
 ## Additional Resources
 
